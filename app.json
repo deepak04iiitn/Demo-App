@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "demo",
-    "slug": "demo",
+    "name": "Flowmart",
+    "slug": "flowmart",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "demo",
+    "scheme": "flowmart",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
