@@ -27,7 +27,7 @@ export default function AdminDashboardScreen() {
   ];
 
   return (
-    <Screen>
+    <Screen showHeader>
       <SectionHeader title="Admin Panel" caption={`Role-based mode: ${state.role.toUpperCase()}`} />
       <View style={styles.grid}>
         {cards.map((item) => (

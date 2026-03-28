@@ -5,6 +5,7 @@ import { router } from 'expo-router';
 import { AppText } from '../../../components/ui/AppText';
 import { quickActions } from '../../../data/mockData';
 import { useApp } from '../../../context/AppContext';
+import { Screen } from '../../../components/ui/Screen';
 
 // ── Brand tokens ──────────────────────────────────────
 const C = {
@@ -40,23 +41,16 @@ export default function HomeScreen() {
   const initial   = state.user.name.charAt(0);
 
   return (
-    <ScrollView
-      style={s.root}
-      contentContainerStyle={s.scroll}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* ── Top bar ── */}
-      <View style={s.topBar}>
-        <View style={s.greeting}>
+    <Screen showHeader>
+      {/* ── Page header ── */}
+      <View style={s.pageHeader}>
+        <View>
+          <AppText weight="900" style={s.pageTitle}>Hi, {firstName} 👋</AppText>
           <View style={s.greetRow}>
             <View style={s.greetDot} />
-            <AppText style={s.greetSub}>Good morning</AppText>
+            <AppText style={s.pageSubtitle}>Good morning</AppText>
           </View>
-          <AppText weight="900" style={s.greetName}>Hi, {firstName} 👋</AppText>
         </View>
-        <Pressable onPress={() => router.push('/(app)/settings')} style={s.avatar}>
-          <AppText weight="800" style={s.avatarText}>{initial}</AppText>
-        </Pressable>
       </View>
 
       {/* ── Hero card ── */}
@@ -185,30 +179,26 @@ export default function HomeScreen() {
       </View>
 
       <View style={{ height: 8 }} />
-    </ScrollView>
+    </Screen>
   );
 }
 
 const s = StyleSheet.create({
   root:   { flex: 1, backgroundColor: C.bg },
-  scroll: { paddingHorizontal: 20, paddingTop: 64, paddingBottom: 48, gap: 30 },
+  scroll: { gap: 30, paddingBottom: 48 },
 
-  // ── Top bar ──────────────────────────────────────────
-  topBar:   { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
-  greeting: { gap: 4 },
-  greetRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  greetDot: { width: 7, height: 7, borderRadius: 3.5, backgroundColor: C.green },
-  greetSub: { fontSize: 12, color: C.textLight, fontWeight: '500', letterSpacing: 0.3 },
-  greetName:{ fontSize: 27, color: C.text, letterSpacing: -0.8, lineHeight: 32 },
-  avatar: {
-    width: 43, height: 43,
-    borderRadius: 14,
-    backgroundColor: C.accentSoft,
-    borderWidth: 1.5,
-    borderColor: C.borderAccent,
-    alignItems: 'center', justifyContent: 'center',
+  // ── Page header ─────────────────────────────────────
+  pageHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    paddingTop: 8,
+    paddingBottom: 4,
   },
-  avatarText: { fontSize: 16, color: C.accent, letterSpacing: 0.3 },
+  pageTitle:    { fontSize: 30, color: C.text, letterSpacing: -1, lineHeight: 33 },
+  pageSubtitle: { fontSize: 13, color: C.textLight, marginTop: 3 },
+  greetRow:     { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  greetDot:     { width: 7, height: 7, borderRadius: 3.5, backgroundColor: C.green },
 
   // ── Hero card ─────────────────────────────────────────
   heroCard: {

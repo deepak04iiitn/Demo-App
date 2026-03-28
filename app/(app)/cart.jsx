@@ -306,12 +306,9 @@ export default function CartScreen() {
   };
 
   return (
-    <Screen>
+    <Screen showHeader>
       {/* ── Header ── */}
       <View style={s.pageHeader}>
-        <Pressable onPress={() => router.back()} style={s.backBtn}>
-          <Ionicons name="close" size={18} color={C.accent} />
-        </Pressable>
         <View style={s.titleWrap}>
           <AppText weight="900" style={s.pageTitle}>Cart</AppText>
           {cartSummary.items.length > 0 && (
@@ -373,12 +370,6 @@ export default function CartScreen() {
 
 const s = StyleSheet.create({
   pageHeader: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingTop: 8, paddingBottom: 4 },
-  backBtn: {
-    width: 36, height: 36, borderRadius: 11,
-    backgroundColor: C.accentSoft,
-    borderWidth: 1, borderColor: C.borderAccent,
-    alignItems: 'center', justifyContent: 'center',
-  },
   titleWrap:    { flex: 1 },
   pageTitle:    { fontSize: 30, color: C.text, letterSpacing: -1, lineHeight: 33 },
   pageSubtitle: { fontSize: 13, color: C.textLight, marginTop: 3 },

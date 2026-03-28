@@ -28,7 +28,6 @@ const C = {
 const MENU = [
   { label: 'Edit Profile',     path: '/(app)/profile/edit',  icon: 'create-outline',       color: C.accent,  bg: C.accentSoft,  border: C.borderAccent },
   { label: 'Settings',         path: '/(app)/settings',      icon: 'settings-outline',     color: C.textMid, bg: '#F0F0EC',     border: C.border },
-  { label: 'Admin Dashboard',  path: '/(app)/admin/index',   icon: 'speedometer-outline',  color: C.amber,   bg: C.amberSoft,   border: '#FCD34D' },
 ];
 
 // ── Stat cell ─────────────────────────────────────────
@@ -93,13 +92,12 @@ export default function ProfileScreen() {
   const { state, actions } = useApp();
 
   const initial     = state.user.name.charAt(0).toUpperCase();
-  const isAdmin     = state.role === 'admin';
   const orderCount  = state.orders?.length ?? 0;
   const cartCount   = state.cart?.length ?? 0;
   const notifCount  = state.notifications?.filter((n) => !n.read).length ?? 0;
 
   return (
-    <Screen>
+    <Screen showHeader>
       {/* ── Hero section ── */}
       <View style={s.hero}>
         {/* Avatar */}
@@ -123,26 +121,6 @@ export default function ProfileScreen() {
         {state.user.bio ? (
           <AppText style={s.bio}>{state.user.bio}</AppText>
         ) : null}
-
-        {/* Role badge */}
-        <Pressable
-          onPress={() => actions.setRole(isAdmin ? 'user' : 'admin')}
-          style={[s.roleBadge, isAdmin && s.roleBadgeAdmin]}
-        >
-          <Ionicons
-            name={isAdmin ? 'speedometer-outline' : 'person-outline'}
-            size={12}
-            color={isAdmin ? C.amber : C.accent}
-          />
-          <AppText weight="700" style={[s.roleText, isAdmin && s.roleTextAdmin]}>
-            {isAdmin ? 'Admin Mode' : 'User Mode'}
-          </AppText>
-          <View style={s.roleSwitchHint}>
-            <AppText weight="700" style={[s.roleSwitchText, isAdmin && s.roleSwitchTextAdmin]}>
-              Switch
-            </AppText>
-          </View>
-        </Pressable>
       </View>
 
       {/* ── Stats card ── */}
@@ -220,27 +198,6 @@ const s = StyleSheet.create({
     fontSize: 13, color: C.textMid, textAlign: 'center',
     lineHeight: 19, paddingHorizontal: 32,
   },
-
-  // Role badge / switcher
-  roleBadge: {
-    flexDirection: 'row', alignItems: 'center', gap: 6,
-    marginTop: 4,
-    paddingLeft: 12, paddingRight: 6, paddingVertical: 7,
-    borderRadius: 999,
-    backgroundColor: C.accentSoft,
-    borderWidth: 1.5, borderColor: C.borderAccent,
-  },
-  roleBadgeAdmin: { backgroundColor: C.amberSoft, borderColor: '#FCD34D' },
-  roleText:       { fontSize: 12, color: C.accent },
-  roleTextAdmin:  { color: C.amber },
-  roleSwitchHint: {
-    paddingHorizontal: 10, paddingVertical: 4,
-    borderRadius: 999,
-    backgroundColor: C.borderAccent,
-    marginLeft: 2,
-  },
-  roleSwitchText:      { fontSize: 10, color: C.accent },
-  roleSwitchTextAdmin: { color: C.amber },
 
   // ── Stats card ───────────────────────────────────────
   statsCard: {

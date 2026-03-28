@@ -174,12 +174,9 @@ export default function OrderDetailScreen() {
   const orderTotal = order.items?.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2);
 
   return (
-    <Screen>
+    <Screen showHeader>
       {/* ── Header ── */}
       <View style={s.pageHeader}>
-        <Pressable onPress={() => router.back()} style={s.backBtn}>
-          <Ionicons name="arrow-back" size={18} color={C.accent} />
-        </Pressable>
         <View style={s.titleWrap}>
           <AppText weight="900" style={s.pageTitle}>Order Details</AppText>
           <AppText style={s.pageSubtitle}>{order.id}</AppText>
@@ -278,12 +275,6 @@ export default function OrderDetailScreen() {
 
 const s = StyleSheet.create({
   pageHeader:   { flexDirection: 'row', alignItems: 'center', gap: 12, paddingTop: 8, paddingBottom: 4 },
-  backBtn: {
-    width: 36, height: 36, borderRadius: 11,
-    backgroundColor: C.accentSoft,
-    borderWidth: 1, borderColor: C.borderAccent,
-    alignItems: 'center', justifyContent: 'center',
-  },
   titleWrap:    { flex: 1 },
   pageTitle:    { fontSize: 30, color: C.text, letterSpacing: -1, lineHeight: 33 },
   pageSubtitle: { fontSize: 12, color: C.textLight, marginTop: 2 },

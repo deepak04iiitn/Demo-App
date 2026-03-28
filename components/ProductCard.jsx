@@ -11,7 +11,7 @@ export function ProductCard({ product, onPress, onAdd, compact }) {
 
   return (
     <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1, flex: compact ? 0.48 : 1 })}>
-      <Card style={styles.card}>
+      <Card style={[styles.card, { padding: 20 }]}>
         <Image source={{ uri: product.images[0] }} style={[styles.image, compact && styles.imageCompact]} />
         <View style={styles.topRow}>
           <AppText variant="caption" weight="800" style={{ color: colors.primary }}>
@@ -39,7 +39,11 @@ export function ProductCard({ product, onPress, onAdd, compact }) {
               ${product.price}
             </AppText>
           </View>
-          <AppButton label="Add" onPress={onAdd} style={styles.addButton} />
+          <AppButton
+            label="Add"
+            onPress={onAdd}
+            style={[styles.addButton, compact && { paddingHorizontal: 12 }]}
+          />
         </View>
       </Card>
     </Pressable>
@@ -47,11 +51,11 @@ export function ProductCard({ product, onPress, onAdd, compact }) {
 }
 
 const styles = StyleSheet.create({
-  card: { gap: 12, height: '100%' },
-  image: { width: '100%', height: 168, borderRadius: 18 },
-  imageCompact: { height: 118 },
+  card: { gap: 14, height: '100%' },
+  image: { width: '100%', height: 168, borderRadius: 20 },
+  imageCompact: { height: 124 },
   topRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   rating: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  bottomRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', gap: 12 },
-  addButton: { minHeight: 42, paddingHorizontal: 18 },
+  bottomRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12 },
+  addButton: { minHeight: 40, paddingHorizontal: 22, borderRadius: 12 },
 });

@@ -248,7 +248,7 @@ export default function NotificationsScreen() {
   };
 
   return (
-    <Screen>
+    <Screen showHeader contentContainerStyle={{ flexGrow: 0 }}>
       {/* ── Page header ── */}
       <View style={s.pageHeader}>
         <View>

@@ -360,7 +360,7 @@ export default function OrdersScreen() {
   });
 
   return (
-    <Screen>
+    <Screen showHeader contentContainerStyle={{ flexGrow: 0 }}>
       {/* ── Page header ── */}
       <View style={s.pageHeader}>
         <View>

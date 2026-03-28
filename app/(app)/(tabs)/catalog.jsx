@@ -97,151 +97,146 @@ export default function CatalogScreen() {
   );
 
   const ListHeader = (
-    <View style={s.header}>
-      {/* ── Title row ── */}
-      <View style={s.titleRow}>
+    <>
+      <View style={s.pageHeader}>
         <View>
           <AppText weight="900" style={s.pageTitle}>Browse</AppText>
           <AppText style={s.pageSubtitle}>Find the right service</AppText>
         </View>
-        <Pressable
-          onPress={() => router.push('/(app)/cart')}
-          style={s.cartBtn}
-        >
-          <Ionicons name="bag-handle-outline" size={20} color={C.accent} />
-        </Pressable>
       </View>
 
-      {/* ── Search bar ── */}
-      <View style={s.searchWrap}>
-        <View style={s.searchIcon}>
-          <Ionicons name="search-outline" size={16} color={C.textLight} />
-        </View>
-        <AppInput
-          placeholder="Search services..."
-          value={query}
-          onChangeText={setQuery}
-          style={s.searchInput}
-          containerStyle={s.searchContainer}
-        />
-        {query.length > 0 && (
-          <Pressable onPress={() => setQuery('')} style={s.searchClear}>
-            <Ionicons name="close-circle" size={17} color={C.textLight} />
-          </Pressable>
-        )}
-      </View>
-
-      {/* ── Filter chips (horizontal scroll) ── */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={s.filterScroll}
-      >
-        {['All', ...state.categories].map((item) => {
-          const active = filter === item;
-          return (
-            <Pressable
-              key={item}
-              onPress={() => setFilter(item)}
-              style={[s.filterChip, active && s.filterChipActive]}
-            >
-              {active && <View style={s.filterChipDot} />}
-              <AppText
-                weight="700"
-                style={[s.filterChipText, active && s.filterChipTextActive]}
-              >
-                {item}
-              </AppText>
-            </Pressable>
-          );
-        })}
-      </ScrollView>
-
-      {/* ── Toolbar: results count + sort + view toggle ── */}
-      <View style={s.toolbar}>
-        <AppText style={s.resultCount}>
-          <AppText weight="800" style={[s.resultCount, { color: C.text }]}>
-            {items.length}
-          </AppText>{' '}
-          services found
-        </AppText>
-
-        <View style={s.toolbarRight}>
-          {/* Sort button */}
-          <Pressable
-            onPress={() => setShowSortSheet((v) => !v)}
-            style={[s.sortBtn, showSortSheet && s.sortBtnActive]}
-          >
-            <Ionicons
-              name={activeSort.icon}
-              size={13}
-              color={showSortSheet ? C.accent : C.textMid}
-            />
-            <AppText
-              weight="700"
-              style={[s.sortBtnText, showSortSheet && s.sortBtnTextActive]}
-            >
-              {activeSort.id}
-            </AppText>
-            <Ionicons
-              name={showSortSheet ? 'chevron-up' : 'chevron-down'}
-              size={11}
-              color={showSortSheet ? C.accent : C.textLight}
-            />
-          </Pressable>
-
-          {/* View toggle */}
-          <View style={s.viewToggle}>
-            {['Grid', 'List'].map((mode) => (
-              <Pressable
-                key={mode}
-                onPress={() => setViewMode(mode)}
-                style={[s.viewToggleBtn, viewMode === mode && s.viewToggleBtnActive]}
-              >
-                <Ionicons
-                  name={mode === 'Grid' ? 'grid-outline' : 'list-outline'}
-                  size={15}
-                  color={viewMode === mode ? C.accent : C.textLight}
-                />
-              </Pressable>
-            ))}
+      <View style={s.headerContent}>
+        {/* ── Search bar ── */}
+        <View style={s.searchWrap}>
+          <View style={s.searchIcon}>
+            <Ionicons name="search-outline" size={16} color={C.textLight} />
           </View>
+          <AppInput
+            placeholder="Search services..."
+            value={query}
+            onChangeText={setQuery}
+            style={s.searchInput}
+            containerStyle={s.searchContainer}
+          />
+          {query.length > 0 && (
+            <Pressable onPress={() => setQuery('')} style={s.searchClear}>
+              <Ionicons name="close-circle" size={17} color={C.textLight} />
+            </Pressable>
+          )}
         </View>
-      </View>
 
-      {/* ── Sort dropdown sheet ── */}
-      {showSortSheet && (
-        <View style={s.sortSheet}>
-          {sortOptions.map((opt) => {
-            const active = sort === opt.id;
+        {/* ── Filter chips (horizontal scroll) ── */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={s.filterScroll}
+        >
+          {['All', ...state.categories].map((item) => {
+            const active = filter === item;
             return (
               <Pressable
-                key={opt.id}
-                onPress={() => { setSort(opt.id); setShowSortSheet(false); }}
-                style={[s.sortOption, active && s.sortOptionActive]}
+                key={item}
+                onPress={() => setFilter(item)}
+                style={[s.filterChip, active && s.filterChipActive]}
               >
-                <View style={[s.sortOptionIcon, active && s.sortOptionIconActive]}>
-                  <Ionicons name={opt.icon} size={14} color={active ? C.accent : C.textMid} />
-                </View>
+                {active && <View style={s.filterChipDot} />}
                 <AppText
-                  weight={active ? '800' : '600'}
-                  style={[s.sortOptionText, active && s.sortOptionTextActive]}
+                  weight="700"
+                  style={[s.filterChipText, active && s.filterChipTextActive]}
                 >
-                  {opt.id}
+                  {item}
                 </AppText>
-                {active && (
-                  <Ionicons name="checkmark" size={14} color={C.accent} style={{ marginLeft: 'auto' }} />
-                )}
               </Pressable>
             );
           })}
+        </ScrollView>
+
+        {/* ── Toolbar: results count + sort + view toggle ── */}
+        <View style={s.toolbar}>
+          <AppText style={s.resultCount}>
+            <AppText weight="800" style={[s.resultCount, { color: C.text }]}>
+              {items.length}
+            </AppText>{' '}
+            services found
+          </AppText>
+
+          <View style={s.toolbarRight}>
+            {/* Sort button */}
+            <Pressable
+              onPress={() => setShowSortSheet((v) => !v)}
+              style={[s.sortBtn, showSortSheet && s.sortBtnActive]}
+            >
+              <Ionicons
+                name={activeSort.icon}
+                size={13}
+                color={showSortSheet ? C.accent : C.textMid}
+              />
+              <AppText
+                weight="700"
+                style={[s.sortBtnText, showSortSheet && s.sortBtnTextActive]}
+              >
+                {activeSort.id}
+              </AppText>
+              <Ionicons
+                name={showSortSheet ? 'chevron-up' : 'chevron-down'}
+                size={11}
+                color={showSortSheet ? C.accent : C.textLight}
+              />
+            </Pressable>
+
+            {/* View toggle */}
+            <View style={s.viewToggle}>
+              {['Grid', 'List'].map((mode) => (
+                <Pressable
+                  key={mode}
+                  onPress={() => setViewMode(mode)}
+                  style={[s.viewToggleBtn, viewMode === mode && s.viewToggleBtnActive]}
+                >
+                  <Ionicons
+                    name={mode === 'Grid' ? 'grid-outline' : 'list-outline'}
+                    size={15}
+                    color={viewMode === mode ? C.accent : C.textLight}
+                  />
+                </Pressable>
+              ))}
+            </View>
+          </View>
         </View>
-      )}
-    </View>
+
+        {/* ── Sort dropdown sheet ── */}
+        {showSortSheet && (
+          <View style={s.sortSheet}>
+            {sortOptions.map((opt) => {
+              const active = sort === opt.id;
+              return (
+                <Pressable
+                  key={opt.id}
+                  onPress={() => { setSort(opt.id); setShowSortSheet(false); }}
+                  style={[s.sortOption, active && s.sortOptionActive]}
+                >
+                  <View style={[s.sortOptionIcon, active && s.sortOptionIconActive]}>
+                    <Ionicons name={opt.icon} size={14} color={active ? C.accent : C.textMid} />
+                  </View>
+                  <AppText
+                    weight={active ? '800' : '600'}
+                    style={[s.sortOptionText, active && s.sortOptionTextActive]}
+                  >
+                    {opt.id}
+                  </AppText>
+                  {active && (
+                    <Ionicons name="checkmark" size={14} color={C.accent} style={{ marginLeft: 'auto' }} />
+                  )}
+                </Pressable>
+              );
+            })}
+          </View>
+        )}
+      </View>
+    </>
   );
 
   return (
-    <Screen scroll={false} contentContainerStyle={{ paddingHorizontal: 0, backgroundColor: C.bg }}>
+    <Screen showHeader scroll={false} contentContainerStyle={{ paddingHorizontal: 0, backgroundColor: C.bg }}>
       <FlatList
         data={items}
         key={viewMode}
@@ -315,29 +310,25 @@ const s = StyleSheet.create({
   listContent: { paddingBottom: 48 },
 
   // ── Header ──────────────────────────────────────────
-  header: {
-    paddingTop: 60,
+  pageHeader: {
+    paddingTop: 8,
+    paddingHorizontal: 20,
+    paddingBottom: 4,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    backgroundColor: C.bg,
+  },
+
+  headerContent: {
     paddingHorizontal: 20,
     paddingBottom: 8,
     gap: 18,
     backgroundColor: C.bg,
   },
 
-  // Title row
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-  },
   pageTitle:    { fontSize: 30, color: C.text, letterSpacing: -1, lineHeight: 33 },
   pageSubtitle: { fontSize: 13, color: C.textLight, marginTop: 2 },
-  cartBtn: {
-    width: 44, height: 44,
-    borderRadius: 14,
-    backgroundColor: C.accentSoft,
-    borderWidth: 1.5, borderColor: C.borderAccent,
-    alignItems: 'center', justifyContent: 'center',
-  },
 
   // Search
   searchWrap: {

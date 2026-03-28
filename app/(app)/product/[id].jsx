@@ -43,12 +43,7 @@ export default function ProductDetailScreen() {
   if (!product) return null;
 
   return (
-    <Screen>
-      {/* ── Back button ── */}
-      <Pressable onPress={() => router.back()} style={s.backBtn}>
-        <Ionicons name="arrow-back" size={18} color={C.accent} />
-      </Pressable>
-
+    <Screen showHeader>
       {/* ── Hero image ── */}
       <View style={s.imageWrap}>
         <Image source={{ uri: product.images?.[0] }} style={s.image} />
@@ -155,13 +150,6 @@ const mc = StyleSheet.create({
 });
 
 const s = StyleSheet.create({
-  backBtn: {
-    width: 36, height: 36, borderRadius: 11,
-    backgroundColor: C.accentSoft,
-    borderWidth: 1, borderColor: C.borderAccent,
-    alignItems: 'center', justifyContent: 'center',
-  },
-
   // Image
   imageWrap:    { position: 'relative' },
   image:        { width: '100%', height: 240, borderRadius: 24 },

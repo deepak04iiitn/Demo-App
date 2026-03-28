@@ -139,7 +139,6 @@ export const quickActions = [
   { id: 'browse', label: 'Browse Services', icon: 'grid-outline' },
   { id: 'cart', label: 'Open Cart', icon: 'bag-handle-outline' },
   { id: 'orders', label: 'Track Orders', icon: 'cube-outline' },
-  { id: 'admin', label: 'Admin Panel', icon: 'speedometer-outline' },
 ];
 
 export const defaultProfile = {
